@@ -1,6 +1,18 @@
 $(document).ready(function() {
   let envelopeOpened = false;
 
+  // ========== MÚSICA DE FONDO ==========
+  const musica = document.getElementById('musica-fondo');
+
+  function iniciarMusica() {
+    if (musica && musica.paused) {
+      musica.volume = 0.3;   // 0.0 a 1.0 → 0.4 es suave
+      musica.play().catch(error => {
+        console.log("La reproducción fue bloqueada:", error);
+      });
+    }
+  }
+
   // ========== TEMPORIZADOR DESDE EL 13 DE MARZO DE 2026 ==========
   const startDate = new Date(2026, 2, 13, 0, 0, 0); // mes 2 = marzo
   let timerInterval = null;
@@ -90,6 +102,9 @@ $(document).ready(function() {
     
     $fp.addClass('scanning');
     $fp.find('.scan-line').show();
+
+    // 🎵 Iniciar música al tocar la huella
+    iniciarMusica();
     
     setTimeout(function() {
       $fp.removeClass('scanning').addClass('success');
@@ -154,6 +169,9 @@ $(document).ready(function() {
     e.stopPropagation();
     if (envelopeOpened) return;
     envelopeOpened = true;
+
+    // 🎵 Por si acaso la música no arrancó antes
+    iniciarMusica();
     
     const $seal = $(this);
     const $flap = $('.envelope-flap');

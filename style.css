@@ -152,8 +152,8 @@ body::before {
   user-select: none;
   touch-action: manipulation;
   position: relative;
-  width: 140px;
-  height: 160px;
+  width: 130px;
+  height: 130px;
   margin: 0 auto 20px;
   cursor: pointer;
   display: flex;
@@ -178,6 +178,7 @@ body::before {
   overflow: visible;
   position: relative;
   z-index: 2;
+  display: block;
 }
 
 /* Círculo contenedor */
@@ -194,7 +195,8 @@ body::before {
   stroke-width: 1;
   stroke-dasharray: 3 5;
   animation: rotateDashed 30s linear infinite;
-  transform-origin: 100px 120px;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 @keyframes rotateDashed {
@@ -458,16 +460,33 @@ body::before {
     0 25px 60px rgba(0, 0, 0, 0.5),
     inset 0 0 80px rgba(232, 193, 74, 0.05);
   max-height: 78vh;
-  overflow: hidden;   /* ← ya NO scrollea el contenedor padre */
+  overflow: hidden;
 }
 
-/* Nuevo: este es el que scrollea */
+/* 👇 Lirios de fondo (Opción A: fijos, tenues, detrás del scroll) */
+.card-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('./lirios.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 70%;
+  opacity: 0.40;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+/* Este es el que scrollea */
 .card-scroll {
-  max-height: calc(78vh - 100px); /* 100px ≈ padding top+bottom */
+  max-height: calc(78vh - 100px);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(232, 193, 74, 0.3) transparent;
-  padding-right: 10px; /* espacio para el scrollbar */
+  padding-right: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .card-scroll::-webkit-scrollbar {
@@ -495,6 +514,7 @@ body::before {
   border-color: #e8c14a;
   border-style: solid;
   opacity: 0.7;
+  z-index: 2;
 }
 
 .card-corner.top-left {
@@ -519,6 +539,8 @@ body::before {
 
 .card-content {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .ornament-top, .ornament-bottom {
@@ -761,8 +783,8 @@ body::before {
     margin-bottom: 30px;
   }
   .fingerprint-container { 
-    width: 120px; 
-    height: 140px; 
+    width: 110px; 
+    height: 110px; 
   }
   .envelope { 
     width: 300px; 
@@ -792,6 +814,9 @@ body::before {
     padding: 35px 25px; 
     max-height: 75vh;
   }
+  .card-scroll {
+    max-height: calc(75vh - 70px);
+  }
   .card-highlight { 
     font-size: 1.6rem; 
   }
@@ -808,7 +833,6 @@ body::before {
   .timer-title { font-size: 1.8rem; }
   .timer-date { font-size: 0.75rem; margin-bottom: 18px; }
   .timer-boxes { gap: 10px; }
-  .timer-box { width: 78px; height: 78px; }
   .timer-value { font-size: 1.6rem; }
   .timer-label { font-size: 0.6rem; letter-spacing: 1.5px; }
 }
@@ -832,8 +856,8 @@ body::before {
     letter-spacing: 1.5px;
   }
   .fingerprint-container { 
-    width: 105px; 
-    height: 120px; 
+    width: 100px; 
+    height: 100px; 
     margin-bottom: 18px;
   }
 
@@ -872,6 +896,9 @@ body::before {
   .card-border { 
     padding: 30px 20px;
     max-height: 72vh;
+  }
+  .card-scroll {
+    max-height: calc(72vh - 60px);
   }
   .card-corner {
     width: 28px;
@@ -912,7 +939,7 @@ body::before {
   .timer-title { font-size: 1.5rem; }
   .timer-date { font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 14px; }
   .timer-boxes { gap: 7px; }
-  .timer-box { width: 62px; height: 62px; border-radius: 8px; }
+  .timer-box { border-radius: 8px; }
   .timer-value { font-size: 1.25rem; }
   .timer-label { font-size: 0.5rem; letter-spacing: 1px; margin-top: 4px; }
 }
@@ -935,14 +962,14 @@ body::before {
     margin-bottom: 18px;
   }
   .fingerprint-container { 
-    width: 95px; 
-    height: 108px; 
+    width: 90px; 
+    height: 90px; 
     margin-bottom: 14px;
   }
   .lock-hint {
     font-size: 0.7rem;
   }
-  .timer-box { width: 54px; height: 54px; }
+  .timer-box { border-radius: 6px; }
   .timer-value { font-size: 1.05rem; }
   .timer-label { font-size: 0.45rem; }
   .timer-title { font-size: 1.3rem; }
