@@ -24,9 +24,9 @@
         <svg class="fingerprint-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#d4af37" />
-              <stop offset="50%" stop-color="#f5d76e" />
-              <stop offset="100%" stop-color="#d4af37" />
+              <stop offset="0%" stop-color="#e8c14a"/>
+              <stop offset="50%" stop-color="#ffd966"/>
+              <stop offset="100%" stop-color="#e8c14a"/>
             </linearGradient>
             <clipPath id="circleClip">
               <circle cx="100" cy="120" r="92" />
@@ -131,12 +131,15 @@
 
   <!-- La carta (estilo boda) -->
   <div id="card" class="wedding-card">
-    <div class="card-border">
-      <div class="card-corner top-left"></div>
-      <div class="card-corner top-right"></div>
-      <div class="card-corner bottom-left"></div>
-      <div class="card-corner bottom-right"></div>
-      
+  <div class="card-border">
+    <!-- Esquinas FUERA del scroll -->
+    <span class="card-corner top-left"></span>
+    <span class="card-corner top-right"></span>
+    <span class="card-corner bottom-left"></span>
+    <span class="card-corner bottom-right"></span>
+
+    <!-- Contenido scrolleable -->
+    <div class="card-scroll">
       <div class="card-content">
         <div class="ornament-top">❦</div>
         <h2>Para mi amorcito</h2>

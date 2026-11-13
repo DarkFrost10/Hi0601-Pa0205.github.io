@@ -10,7 +10,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   font-family: 'Cormorant Garamond', serif;
-  background: linear-gradient(135deg, #892E00 0%, #a83c0a 50%, #892E00 100%);
+  background: linear-gradient(135deg, #7a1f2b 0%, #a8324a 50%, #7a1f2b 100%);
   overflow: hidden;
   position: relative;
 }
@@ -26,9 +26,9 @@ body::before {
   height: 700px;
   background: radial-gradient(
     circle,
-    rgba(212, 175, 55, 0.22) 0%,
-    rgba(212, 175, 55, 0.10) 25%,
-    rgba(212, 175, 55, 0.04) 45%,
+    rgba(232, 193, 74, 0.22) 0%,
+    rgba(232, 193, 74, 0.10) 25%,
+    rgba(232, 193, 74, 0.04) 45%,
     transparent 70%
   );
   pointer-events: none;
@@ -53,10 +53,10 @@ body::before {
 /* Estrella de 4 puntas */
 .star {
   position: absolute;
-  color: #d4af37;
+  color: #e8c14a;
   pointer-events: none;
   animation: twinkle 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.7));
+  filter: drop-shadow(0 0 4px rgba(232, 193, 74, 0.7));
   will-change: transform, opacity;
 }
 
@@ -83,9 +83,9 @@ body::before {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(137, 46, 0, 0.55) 0%,
-    rgba(168, 60, 10, 0.45) 50%,
-    rgba(137, 46, 0, 0.55) 100%
+    rgba(122, 31, 43, 0.55) 0%,
+    rgba(168, 50, 74, 0.45) 50%,
+    rgba(122, 31, 43, 0.55) 100%
   );
   display: flex;
   align-items: center;
@@ -115,13 +115,13 @@ body::before {
 .lock-content h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 3.5rem;
-  color: #d4af37;
-  text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+  color: #e8c14a;
+  text-shadow: 0 0 30px rgba(232, 193, 74, 0.4);
   margin-bottom: 10px;
 }
 
 .lock-subtitle {
-  color: rgba(212, 175, 55, 0.7);
+  color: rgba(232, 193, 74, 0.7);
   font-size: 1.1rem;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -129,7 +129,7 @@ body::before {
 }
 
 .lock-hint {
-  color: rgba(212, 175, 55, 0.5);
+  color: rgba(232, 193, 74, 0.5);
   font-size: 0.9rem;
   letter-spacing: 2px;
   animation: blink 2s ease infinite;
@@ -160,12 +160,12 @@ body::before {
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease, filter 0.3s ease;
-  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+  filter: drop-shadow(0 0 12px rgba(232, 193, 74, 0.35));
 }
 
 .fingerprint-container:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.7));
+  filter: drop-shadow(0 0 22px rgba(232, 193, 74, 0.7));
 }
 
 .fingerprint-container.scanning {
@@ -182,7 +182,7 @@ body::before {
 
 /* Círculo contenedor */
 .fp-circle {
-  fill: rgba(137, 46, 0, 0.6);
+  fill: rgba(92, 21, 32, 0.6);
   stroke: url(#goldGrad);
   stroke-width: 2.5;
   opacity: 0.9;
@@ -190,7 +190,7 @@ body::before {
 
 .fp-circle-inner {
   fill: none;
-  stroke: rgba(212, 175, 55, 0.35);
+  stroke: rgba(232, 193, 74, 0.35);
   stroke-width: 1;
   stroke-dasharray: 3 5;
   animation: rotateDashed 30s linear infinite;
@@ -230,8 +230,8 @@ body::before {
   left: 10%;
   width: 80%;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #d4af37, #fff8e1, #d4af37, transparent);
-  box-shadow: 0 0 12px #d4af37, 0 0 25px rgba(212, 175, 55, 0.6);
+  background: linear-gradient(90deg, transparent, #e8c14a, #fffbe6, #e8c14a, transparent);
+  box-shadow: 0 0 12px #e8c14a, 0 0 25px rgba(232, 193, 74, 0.6);
   top: 10%;
   border-radius: 3px;
   opacity: 0.6;
@@ -268,13 +268,13 @@ body::before {
 }
 
 @keyframes pulseGold {
-  from { stroke: #d4af37; opacity: 1; }
-  to   { stroke: #f5d76e; opacity: 0.5; }
+  from { stroke: #e8c14a; opacity: 1; }
+  to   { stroke: #ffd966; opacity: 0.5; }
 }
 
 @keyframes glowCircle {
-  from { filter: drop-shadow(0 0 8px #d4af37); }
-  to   { filter: drop-shadow(0 0 25px #f5d76e); }
+  from { filter: drop-shadow(0 0 8px #e8c14a); }
+  to   { filter: drop-shadow(0 0 25px #ffd966); }
 }
 
 /* Estado éxito */
@@ -324,9 +324,9 @@ body::before {
 .envelope-back {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #6e2500, #892E00);
+  background: linear-gradient(135deg, #f5e6c8, #e8d4a8);
   border-radius: 8px;
-  border: 2px solid rgba(212, 175, 55, 0.3);
+  border: 2px solid rgba(232, 193, 74, 0.5);
 }
 
 .envelope-flap {
@@ -337,7 +337,7 @@ body::before {
   height: 0;
   border-left: 190px solid transparent;
   border-right: 190px solid transparent;
-  border-top: 140px solid #7a2a00;
+  border-top: 140px solid #ead9b0;
   transform-origin: top;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 3;
@@ -351,7 +351,7 @@ body::before {
   left: -190px;
   width: 380px;
   height: 140px;
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.05), transparent);
+  background: linear-gradient(180deg, rgba(232, 193, 74, 0.15), transparent);
   border-radius: 8px 8px 0 0;
 }
 
@@ -370,7 +370,7 @@ body::before {
 
 .wax-seal:hover {
   transform: translateX(-50%) scale(1.15);
-  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.6));
+  filter: drop-shadow(0 5px 15px rgba(232, 193, 74, 0.6));
 }
 
 .heart-seal {
@@ -397,7 +397,7 @@ body::before {
 .envelope-front {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, #5c1f00 100%);
+  background: linear-gradient(180deg, transparent 40%, #d9c290 100%);
   border-radius: 8px;
   z-index: 2;
 }
@@ -415,7 +415,7 @@ body::before {
   display: block;
   font-size: 0.75rem;
   letter-spacing: 4px;
-  color: rgba(212, 175, 55, 0.6);
+  color: rgba(122, 31, 43, 0.7);
   text-transform: uppercase;
   margin-bottom: 5px;
 }
@@ -424,8 +424,8 @@ body::before {
   display: block;
   font-family: 'Great Vibes', cursive;
   font-size: 2rem;
-  color: #d4af37;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  color: #7a1f2b;
+  text-shadow: 0 0 20px rgba(232, 193, 74, 0.5);
 }
 
 /* ========== CARTA ESTILO BODA ========== */
@@ -452,15 +452,31 @@ body::before {
   border-radius: 4px;
   padding: 50px 45px;
   box-shadow: 
-    0 0 0 1px rgba(212, 175, 55, 0.3),
+    0 0 0 1px rgba(232, 193, 74, 0.3),
     0 0 0 8px rgba(253, 252, 248, 1),
-    0 0 0 9px rgba(212, 175, 55, 0.4),
+    0 0 0 9px rgba(232, 193, 74, 0.4),
     0 25px 60px rgba(0, 0, 0, 0.5),
-    inset 0 0 80px rgba(212, 175, 55, 0.05);
-  overflow-y: auto;
+    inset 0 0 80px rgba(232, 193, 74, 0.05);
   max-height: 78vh;
+  overflow: hidden;   /* ← ya NO scrollea el contenedor padre */
+}
+
+/* Nuevo: este es el que scrollea */
+.card-scroll {
+  max-height: calc(78vh - 100px); /* 100px ≈ padding top+bottom */
+  overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+  scrollbar-color: rgba(232, 193, 74, 0.3) transparent;
+  padding-right: 10px; /* espacio para el scrollbar */
+}
+
+.card-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-scroll::-webkit-scrollbar-thumb {
+  background: rgba(232, 193, 74, 0.3);
+  border-radius: 2px;
 }
 
 .card-border::-webkit-scrollbar {
@@ -468,7 +484,7 @@ body::before {
 }
 
 .card-border::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(232, 193, 74, 0.3);
   border-radius: 2px;
 }
 
@@ -476,7 +492,7 @@ body::before {
   position: absolute;
   width: 40px;
   height: 40px;
-  border-color: #d4af37;
+  border-color: #e8c14a;
   border-style: solid;
   opacity: 0.7;
 }
@@ -507,7 +523,7 @@ body::before {
 
 .ornament-top, .ornament-bottom {
   font-size: 1.8rem;
-  color: #d4af37;
+  color: #e8c14a;
   opacity: 0.8;
   line-height: 1;
 }
@@ -523,9 +539,9 @@ body::before {
 .wedding-card h2 {
   font-family: 'Great Vibes', cursive;
   font-size: 3rem;
-  color: #1a3a5c;
+  color: #7a1f2b;
   margin: 10px 0;
-  text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+  text-shadow: 0 2px 4px rgba(232, 193, 74, 0.2);
 }
 
 .divider {
@@ -539,25 +555,25 @@ body::before {
 .divider .line {
   width: 80px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  background: linear-gradient(90deg, transparent, #e8c14a, transparent);
 }
 
 .divider .diamond {
-  color: #d4af37;
+  color: #e8c14a;
   font-size: 0.7rem;
 }
 
 .card-greeting {
   font-family: 'Great Vibes', cursive;
   font-size: 1.8rem;
-  color: #1a3a5c;
+  color: #7a1f2b;
   margin-bottom: 15px;
 }
 
 .card-text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #3a4a5c;
+  color: #5c1520;
   margin-bottom: 12px;
   text-align: justify;
   padding: 0 10px;
@@ -566,15 +582,15 @@ body::before {
 .card-highlight {
   font-family: 'Great Vibes', cursive;
   font-size: 2rem;
-  color: #b8860b;
+  color: #c9971a;
   margin: 20px 0;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 0 20px rgba(232, 193, 74, 0.3);
 }
 
 .card-signature {
   font-family: 'Great Vibes', cursive;
   font-size: 1.5rem;
-  color: #1a3a5c;
+  color: #7a1f2b;
   opacity: 0.8;
 }
 
@@ -601,7 +617,7 @@ body::before {
   text-align: center;
   opacity: 0;
   visibility: hidden;
-  z-index: 150; /* por encima de la carta (100) */
+  z-index: 150;
   transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease, top 0.8s ease;
   pointer-events: none;
 }
@@ -626,8 +642,8 @@ body::before {
 .timer-title {
   font-family: 'Great Vibes', cursive;
   font-size: 2.2rem;
-  color: #d4af37;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  color: #e8c14a;
+  text-shadow: 0 0 20px rgba(232, 193, 74, 0.5);
   margin-bottom: 4px;
 }
 
@@ -635,7 +651,7 @@ body::before {
   font-size: 0.85rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(212, 175, 55, 0.6);
+  color: rgba(232, 193, 74, 0.6);
   margin-bottom: 22px;
 }
 
@@ -653,12 +669,12 @@ body::before {
   justify-content: center;
   width: 100px;
   height: 100px;
-  background: linear-gradient(145deg, rgba(30, 58, 95, 0.85), rgba(26, 47, 75, 0.85));
-  border: 2px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(145deg, rgba(74, 14, 26, 0.85), rgba(92, 21, 32, 0.85));
+  border: 2px solid rgba(232, 193, 74, 0.35);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.35s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(212, 175, 55, 0.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(232, 193, 74, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -668,7 +684,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15), transparent 70%);
+  background: radial-gradient(circle at center, rgba(232, 193, 74, 0.15), transparent 70%);
   opacity: 0.4;
   transition: opacity 0.35s ease;
   pointer-events: none;
@@ -677,14 +693,14 @@ body::before {
 /* Hover y click → iluminación dorada */
 .timer-box:hover,
 .timer-box.active {
-  border-color: #f5d76e;
+  border-color: #ffd966;
   box-shadow: 
-    0 0 20px rgba(212, 175, 55, 0.7),
-    0 0 40px rgba(212, 175, 55, 0.35),
+    0 0 20px rgba(232, 193, 74, 0.7),
+    0 0 40px rgba(232, 193, 74, 0.35),
     0 6px 18px rgba(0, 0, 0, 0.35),
-    inset 0 0 25px rgba(245, 215, 110, 0.25);
+    inset 0 0 25px rgba(255, 217, 102, 0.25);
   transform: translateY(-4px) scale(1.04);
-  background: linear-gradient(145deg, rgba(46, 74, 116, 0.95), rgba(36, 60, 90, 0.95));
+  background: linear-gradient(145deg, rgba(122, 31, 43, 0.95), rgba(92, 21, 32, 0.95));
 }
 
 .timer-box:hover::before,
@@ -694,22 +710,22 @@ body::before {
 
 .timer-box:hover .timer-value,
 .timer-box.active .timer-value {
-  color: #fff8e1;
-  text-shadow: 0 0 18px #f5d76e, 0 0 30px rgba(212, 175, 55, 0.8);
+  color: #fffbe6;
+  text-shadow: 0 0 18px #ffd966, 0 0 30px rgba(232, 193, 74, 0.8);
 }
 
 .timer-box:hover .timer-label,
 .timer-box.active .timer-label {
-  color: #f5d76e;
+  color: #ffd966;
 }
 
 .timer-value {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
   font-size: 2.2rem;
-  color: #d4af37;
+  color: #e8c14a;
   line-height: 1;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 0 10px rgba(232, 193, 74, 0.4);
   transition: all 0.35s ease;
   position: relative;
   z-index: 1;
@@ -719,7 +735,7 @@ body::before {
   font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(212, 175, 55, 0.65);
+  color: rgba(232, 193, 74, 0.65);
   margin-top: 6px;
   transition: all 0.35s ease;
   position: relative;
