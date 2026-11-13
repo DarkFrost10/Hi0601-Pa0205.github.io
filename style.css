@@ -1,0 +1,927 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Cormorant Garamond', serif;
+  background: linear-gradient(135deg, #892E00 0%, #a83c0a 50%, #892E00 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Resplandor dorado permanente en el centro del body */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.22) 0%,
+    rgba(212, 175, 55, 0.10) 25%,
+    rgba(212, 175, 55, 0.04) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: goldenGlow 6s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+@keyframes goldenGlow {
+  0%   { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* ========== ESTRELLAS DE FONDO (SIEMPRE VISIBLES) ========== */
+.stars-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Estrella de 4 puntas */
+.star {
+  position: absolute;
+  color: #d4af37;
+  pointer-events: none;
+  animation: twinkle 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.7));
+  will-change: transform, opacity;
+}
+
+.star svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(45deg);
+  }
+}
+
+/* ========== PANTALLA DE BLOQUEO ========== */
+#lock-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(137, 46, 0, 0.55) 0%,
+    rgba(168, 60, 10, 0.45) 50%,
+    rgba(137, 46, 0, 0.55) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#lock-screen.unlocked {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lock-content {
+  text-align: center;
+  animation: fadeInUp 1s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.lock-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.lock-content h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: #d4af37;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+  margin-bottom: 10px;
+}
+
+.lock-subtitle {
+  color: rgba(212, 175, 55, 0.7);
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.lock-hint {
+  color: rgba(212, 175, 55, 0.5);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  animation: blink 2s ease infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== HUELLA DIGITAL EN CÍRCULO ========== */
+.fingerprint-container {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  width: 140px;
+  height: 160px;
+  margin: 0 auto 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+}
+
+.fingerprint-container:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.7));
+}
+
+.fingerprint-container.scanning {
+  pointer-events: none;
+}
+
+.fingerprint-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: relative;
+  z-index: 2;
+}
+
+/* Círculo contenedor */
+.fp-circle {
+  fill: rgba(137, 46, 0, 0.6);
+  stroke: url(#goldGrad);
+  stroke-width: 2.5;
+  opacity: 0.9;
+}
+
+.fp-circle-inner {
+  fill: none;
+  stroke: rgba(212, 175, 55, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  animation: rotateDashed 30s linear infinite;
+  transform-origin: 100px 120px;
+}
+
+@keyframes rotateDashed {
+  to { transform: rotate(360deg); }
+}
+
+/* Surcos dactilares */
+.fp-line {
+  fill: none;
+  stroke: url(#goldGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.fp-dim {
+  opacity: 0.45;
+}
+
+.fingerprint-container:hover .fp-line {
+  opacity: 1;
+}
+
+.fingerprint-container:hover .fp-dim {
+  opacity: 0.7;
+}
+
+/* Línea de escaneo animada */
+.scan-line {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4af37, #fff8e1, #d4af37, transparent);
+  box-shadow: 0 0 12px #d4af37, 0 0 25px rgba(212, 175, 55, 0.6);
+  top: 10%;
+  border-radius: 3px;
+  opacity: 0.6;
+  z-index: 3;
+  animation: scanIdle 2.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes scanIdle {
+  0%   { top: 10%; opacity: 0.2; }
+  50%  { top: 85%; opacity: 1; }
+  100% { top: 10%; opacity: 0.2; }
+}
+
+/* Escaneo activo */
+.fingerprint-container.scanning .fp-line {
+  animation: pulseGold 0.4s ease infinite alternate;
+}
+
+.fingerprint-container.scanning .fp-circle {
+  animation: glowCircle 1s ease infinite alternate;
+}
+
+.fingerprint-container.scanning .scan-line {
+  animation: scanActive 1.5s ease-in-out;
+}
+
+@keyframes scanActive {
+  0%   { top: 10%; opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { top: 85%; opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 10%; opacity: 0; }
+}
+
+@keyframes pulseGold {
+  from { stroke: #d4af37; opacity: 1; }
+  to   { stroke: #f5d76e; opacity: 0.5; }
+}
+
+@keyframes glowCircle {
+  from { filter: drop-shadow(0 0 8px #d4af37); }
+  to   { filter: drop-shadow(0 0 25px #f5d76e); }
+}
+
+/* Estado éxito */
+.fingerprint-container.success .fp-line {
+  stroke: #4ade80;
+  opacity: 1;
+  animation: successPulse 0.6s ease;
+}
+
+.fingerprint-container.success .fp-circle {
+  stroke: #4ade80;
+  filter: drop-shadow(0 0 25px rgba(74, 222, 128, 0.9));
+}
+
+.fingerprint-container.success .scan-line {
+  opacity: 0;
+}
+
+@keyframes successPulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.5)); }
+  50%      { filter: drop-shadow(0 0 25px rgba(74, 222, 128, 1)); }
+}
+
+/* ========== SOBRE ========== */
+.valentines-day {
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  z-index: 10;
+}
+
+.valentines-day.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.envelope {
+  position: relative;
+  width: 380px;
+  height: 260px;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5));
+  transition: transform 0.4s ease;
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6e2500, #892E00);
+  border-radius: 8px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 190px solid transparent;
+  border-right: 190px solid transparent;
+  border-top: 140px solid #7a2a00;
+  transform-origin: top;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
+  border-radius: 8px 8px 0 0;
+}
+
+.envelope-flap::after {
+  content: "";
+  position: absolute;
+  top: -140px;
+  left: -190px;
+  width: 380px;
+  height: 140px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.05), transparent);
+  border-radius: 8px 8px 0 0;
+}
+
+.wax-seal {
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  z-index: 5;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+
+.wax-seal:hover {
+  transform: translateX(-50%) scale(1.15);
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.6));
+}
+
+.heart-seal {
+  width: 100%;
+  height: 100%;
+  animation: heartBeat 2s ease infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.wax-seal.opening {
+  animation: sealBreak 0.6s ease forwards;
+}
+
+@keyframes sealBreak {
+  0% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(1.3) rotate(10deg); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(0) rotate(20deg); opacity: 0; }
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, #5c1f00 100%);
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.envelope-text {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 4;
+}
+
+.to-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: rgba(212, 175, 55, 0.6);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.to-name {
+  display: block;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #d4af37;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ========== CARTA ESTILO BODA ========== */
+.wedding-card {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 90%;
+  max-width: 620px;
+  max-height: 78vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+}
+
+.wedding-card.show {
+  visibility: visible;
+}
+
+.card-border {
+  position: relative;
+  background: linear-gradient(145deg, #fdfcf8 0%, #f8f4e8 50%, #fdfcf8 100%);
+  border-radius: 4px;
+  padding: 50px 45px;
+  box-shadow: 
+    0 0 0 1px rgba(212, 175, 55, 0.3),
+    0 0 0 8px rgba(253, 252, 248, 1),
+    0 0 0 9px rgba(212, 175, 55, 0.4),
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 80px rgba(212, 175, 55, 0.05);
+  overflow-y: auto;
+  max-height: 78vh;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+}
+
+.card-border::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-border::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 2px;
+}
+
+.card-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-color: #d4af37;
+  border-style: solid;
+  opacity: 0.7;
+}
+
+.card-corner.top-left {
+  top: 12px; left: 12px;
+  border-width: 2px 0 0 2px;
+}
+
+.card-corner.top-right {
+  top: 12px; right: 12px;
+  border-width: 2px 2px 0 0;
+}
+
+.card-corner.bottom-left {
+  bottom: 12px; left: 12px;
+  border-width: 0 0 2px 2px;
+}
+
+.card-corner.bottom-right {
+  bottom: 12px; right: 12px;
+  border-width: 0 2px 2px 0;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.ornament-top, .ornament-bottom {
+  font-size: 1.8rem;
+  color: #d4af37;
+  opacity: 0.8;
+  line-height: 1;
+}
+
+.ornament-top {
+  margin-bottom: 15px;
+}
+
+.ornament-bottom {
+  margin-top: 15px;
+}
+
+.wedding-card h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #1a3a5c;
+  margin: 10px 0;
+  text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.divider .line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.divider .diamond {
+  color: #d4af37;
+  font-size: 0.7rem;
+}
+
+.card-greeting {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: #1a3a5c;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #3a4a5c;
+  margin-bottom: 12px;
+  text-align: justify;
+  padding: 0 10px;
+}
+
+.card-highlight {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #b8860b;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.card-signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  color: #1a3a5c;
+  opacity: 0.8;
+}
+
+/* Partículas flotantes */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99;
+  font-size: 1.2rem;
+  animation: floatUp 3s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-150px) scale(0.3); }
+}
+
+/* ========== TEMPORIZADOR ========== */
+.timer-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 150; /* por encima de la carta (100) */
+  transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease, top 0.8s ease;
+  pointer-events: none;
+}
+
+.timer-container.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Cuando la carta se abre, el temporizador se va arriba y queda fijo */
+.timer-container.moved-up {
+  top: 18px;
+  transform: translate(-50%, 0) scale(0.85);
+}
+
+.timer-container.moved-up.visible {
+  transform: translate(-50%, 0) scale(0.85);
+}
+
+.timer-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: #d4af37;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  margin-bottom: 4px;
+}
+
+.timer-date {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.6);
+  margin-bottom: 22px;
+}
+
+.timer-boxes {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.timer-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(145deg, rgba(30, 58, 95, 0.85), rgba(26, 47, 75, 0.85));
+  border: 2px solid rgba(212, 175, 55, 0.35);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(212, 175, 55, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brillo suave permanente */
+.timer-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15), transparent 70%);
+  opacity: 0.4;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Hover y click → iluminación dorada */
+.timer-box:hover,
+.timer-box.active {
+  border-color: #f5d76e;
+  box-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.7),
+    0 0 40px rgba(212, 175, 55, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 25px rgba(245, 215, 110, 0.25);
+  transform: translateY(-4px) scale(1.04);
+  background: linear-gradient(145deg, rgba(46, 74, 116, 0.95), rgba(36, 60, 90, 0.95));
+}
+
+.timer-box:hover::before,
+.timer-box.active::before {
+  opacity: 1;
+}
+
+.timer-box:hover .timer-value,
+.timer-box.active .timer-value {
+  color: #fff8e1;
+  text-shadow: 0 0 18px #f5d76e, 0 0 30px rgba(212, 175, 55, 0.8);
+}
+
+.timer-box:hover .timer-label,
+.timer-box.active .timer-label {
+  color: #f5d76e;
+}
+
+.timer-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: #d4af37;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.timer-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.65);
+  margin-top: 6px;
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablets y móviles grandes */
+@media (max-width: 768px) {
+  .lock-content h1 { 
+    font-size: 2.5rem; 
+  }
+  .lock-subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+  .fingerprint-container { 
+    width: 120px; 
+    height: 140px; 
+  }
+  .envelope { 
+    width: 300px; 
+    height: 210px; 
+  }
+  .envelope-flap {
+    border-left-width: 150px;
+    border-right-width: 150px;
+    border-top-width: 110px;
+  }
+  .wax-seal { 
+    width: 55px; 
+    height: 55px; 
+    top: 75px; 
+  }
+  .to-name { 
+    font-size: 1.6rem; 
+  }
+  .wedding-card {
+    top: 57%;
+    max-height: 75vh;
+  }
+  .wedding-card h2 { 
+    font-size: 2.2rem; 
+  }
+  .card-border { 
+    padding: 35px 25px; 
+    max-height: 75vh;
+  }
+  .card-highlight { 
+    font-size: 1.6rem; 
+  }
+  .card-text {
+    font-size: 1rem;
+  }
+  .timer-container.moved-up {
+    top: 12px;
+    transform: translate(-50%, 0) scale(0.75);
+  }
+  .timer-container.moved-up.visible {
+    transform: translate(-50%, 0) scale(0.75);
+  }
+  .timer-title { font-size: 1.8rem; }
+  .timer-date { font-size: 0.75rem; margin-bottom: 18px; }
+  .timer-boxes { gap: 10px; }
+  .timer-box { width: 78px; height: 78px; }
+  .timer-value { font-size: 1.6rem; }
+  .timer-label { font-size: 0.6rem; letter-spacing: 1.5px; }
+}
+
+/* Móviles medianos */
+@media (max-width: 480px) {
+  .lock-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .lock-content h1 { 
+    font-size: 2rem; 
+  }
+  .lock-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+  }
+  .lock-hint {
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+  }
+  .fingerprint-container { 
+    width: 105px; 
+    height: 120px; 
+    margin-bottom: 18px;
+  }
+
+  /* Sobre: mantener proporciones del triángulo */
+  .envelope { 
+    width: 260px; 
+    height: 180px; 
+  }
+  .envelope-flap {
+    border-left-width: 130px;
+    border-right-width: 130px;
+    border-top-width: 95px;
+  }
+  .wax-seal { 
+    width: 48px; 
+    height: 48px; 
+    top: 62px; 
+  }
+  .envelope-text {
+    bottom: 35px;
+  }
+  .to-label {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+  }
+  .to-name { 
+    font-size: 1.35rem; 
+  }
+
+  /* Carta */
+  .wedding-card {
+    width: 94%;
+    top: 58%;
+    max-height: 72vh;
+  }
+  .card-border { 
+    padding: 30px 20px;
+    max-height: 72vh;
+  }
+  .card-corner {
+    width: 28px;
+    height: 28px;
+  }
+  .ornament-top, .ornament-bottom {
+    font-size: 1.4rem;
+  }
+  .wedding-card h2 { 
+    font-size: 1.9rem; 
+  }
+  .card-greeting {
+    font-size: 1.5rem;
+  }
+  .card-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 0 5px;
+  }
+  .card-highlight { 
+    font-size: 1.5rem; 
+  }
+  .card-signature {
+    font-size: 1.2rem;
+  }
+  .divider .line {
+    width: 55px;
+  }
+
+  /* Temporizador */
+  .timer-container.moved-up {
+    top: 8px;
+    transform: translate(-50%, 0) scale(0.65);
+  }
+  .timer-container.moved-up.visible {
+    transform: translate(-50%, 0) scale(0.65);
+  }
+  .timer-title { font-size: 1.5rem; }
+  .timer-date { font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 14px; }
+  .timer-boxes { gap: 7px; }
+  .timer-box { width: 62px; height: 62px; border-radius: 8px; }
+  .timer-value { font-size: 1.25rem; }
+  .timer-label { font-size: 0.5rem; letter-spacing: 1px; margin-top: 4px; }
+}
+/* Cuando está arriba, que no bloquee clics fuera de los cuadros */
+.timer-container.moved-up {
+  pointer-events: none;
+}
+
+.timer-container.moved-up .timer-box {
+  pointer-events: auto;
+}
+
+/* Móviles pequeños / landscape bajo */
+@media (max-width: 380px), (max-height: 620px) {
+  .lock-content h1 { 
+    font-size: 1.7rem; 
+  }
+  .lock-subtitle {
+    font-size: 0.7rem;
+    margin-bottom: 18px;
+  }
+  .fingerprint-container { 
+    width: 95px; 
+    height: 108px; 
+    margin-bottom: 14px;
+  }
+  .lock-hint {
+    font-size: 0.7rem;
+  }
+  .timer-box { width: 54px; height: 54px; }
+  .timer-value { font-size: 1.05rem; }
+  .timer-label { font-size: 0.45rem; }
+  .timer-title { font-size: 1.3rem; }
+}

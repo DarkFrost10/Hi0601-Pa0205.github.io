@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Mi Amada Hillary Tatiana</title>
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Estrellas de fondo (siempre visibles) -->
+  <div class="stars-container" id="stars-container"></div>
+
+  <!-- Pantalla de bloqueo con huella -->
+  <div id="lock-screen">
+    <div class="lock-content">
+      <div class="lock-icon">🔒</div>
+      <h1>Para Mi Niña Hermosa</h1>
+      <p class="lock-subtitle">Coloca tu huella para abrir</p>
+
+      <div class="fingerprint-container" id="fingerprint">
+        <div class="scan-line"></div>
+        <svg class="fingerprint-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4af37" />
+              <stop offset="50%" stop-color="#f5d76e" />
+              <stop offset="100%" stop-color="#d4af37" />
+            </linearGradient>
+            <clipPath id="circleClip">
+              <circle cx="100" cy="120" r="92" />
+            </clipPath>
+          </defs>
+
+          <!-- Círculo contenedor -->
+          <circle class="fp-circle" cx="100" cy="120" r="98" />
+          <circle class="fp-circle-inner" cx="100" cy="120" r="90" />
+
+          <!-- Huella dactilar recortada al círculo -->
+          <g clip-path="url(#circleClip)" class="fp-ridges">
+            <!-- Capa exterior: arcos concéntricos -->
+            <path class="fp-line" d="M100 30 C60 30 30 65 30 110 C30 150 40 180 45 215"/>
+            <path class="fp-line" d="M100 30 C140 30 170 65 170 110 C170 150 160 180 155 215"/>
+
+            <path class="fp-line" d="M100 45 C68 45 45 72 45 112 C45 145 52 175 55 205"/>
+            <path class="fp-line" d="M100 45 C132 45 155 72 155 112 C155 145 148 175 145 205"/>
+
+            <path class="fp-line" d="M100 60 C76 60 60 82 60 114 C60 142 64 168 66 195"/>
+            <path class="fp-line" d="M100 60 C124 60 140 82 140 114 C140 142 136 168 134 195"/>
+
+            <path class="fp-line" d="M100 75 C84 75 74 92 74 116 C74 138 76 160 77 185"/>
+            <path class="fp-line" d="M100 75 C116 75 126 92 126 116 C126 138 124 160 123 185"/>
+
+            <!-- Líneas internas del centro (whorl) -->
+            <path class="fp-line" d="M100 90 C92 90 86 98 86 116 C86 134 88 152 89 172"/>
+            <path class="fp-line" d="M100 90 C108 90 114 98 114 116 C114 134 112 152 111 172"/>
+
+            <path class="fp-line" d="M100 105 C96 105 94 110 94 118 C94 132 95 146 96 162"/>
+            <path class="fp-line" d="M100 105 C104 105 106 110 106 118 C106 132 105 146 104 162"/>
+
+            <path class="fp-line" d="M100 120 C99 120 98 124 98 130 C98 140 99 150 99 156"/>
+            <path class="fp-line" d="M100 120 C101 120 102 124 102 130 C102 140 101 150 101 156"/>
+
+            <!-- Trazos inferiores tipo crestas -->
+            <path class="fp-line" d="M42 218 C60 228 80 232 100 232 C120 232 140 228 158 218"/>
+            <path class="fp-line" d="M50 200 C65 208 82 212 100 212 C118 212 135 208 150 200"/>
+            <path class="fp-line" d="M58 182 C70 188 85 192 100 192 C115 192 130 188 142 182"/>
+            <path class="fp-line" d="M64 164 C74 169 87 172 100 172 C113 172 126 169 136 164"/>
+            <path class="fp-line" d="M70 146 C78 150 89 153 100 153 C111 153 122 150 130 146"/>
+            <path class="fp-line" d="M76 128 C82 131 91 134 100 134 C109 134 118 131 124 128"/>
+            <path class="fp-line" d="M82 110 C86 112 93 114 100 114 C107 114 114 112 118 110"/>
+
+            <!-- Detalles laterales -->
+            <path class="fp-line fp-dim" d="M35 130 C33 140 32 150 34 160"/>
+            <path class="fp-line fp-dim" d="M165 130 C167 140 168 150 166 160"/>
+            <path class="fp-line fp-dim" d="M40 100 C38 108 37 116 38 124"/>
+            <path class="fp-line fp-dim" d="M160 100 C162 108 163 116 162 124"/>
+          </g>
+        </svg>
+      </div>
+
+      <p class="lock-hint">Toca la huella</p>
+    </div>
+  </div>
+
+<!-- Temporizador desde que nos conocimos -->
+<div id="timer-container" class="timer-container">
+  <p class="timer-title">Feliz De Tenerte Conmigo</p>
+  <p class="timer-date">Cada segundo a tu lado es mi lugar favorito en el mundo</p>
+  <div class="timer-boxes">
+    <div class="timer-box" data-unit="dias">
+      <span class="timer-value" id="timer-dias">0</span>
+      <span class="timer-label">Días</span>
+    </div>
+    <div class="timer-box" data-unit="horas">
+      <span class="timer-value" id="timer-horas">0</span>
+      <span class="timer-label">Horas</span>
+    </div>
+    <div class="timer-box" data-unit="minutos">
+      <span class="timer-value" id="timer-minutos">0</span>
+      <span class="timer-label">Minutos</span>
+    </div>
+    <div class="timer-box" data-unit="segundos">
+      <span class="timer-value" id="timer-segundos">0</span>
+      <span class="timer-label">Segundos</span>
+    </div>
+  </div>
+</div>
+
+  <!-- Contenedor del sobre -->
+  <div class="valentines-day" id="envelope-container">
+    <div class="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-flap"></div>
+      <div class="wax-seal" id="wax-seal">
+        <svg viewBox="0 0 100 100" class="heart-seal">
+          <path d="M50 85 C50 85 10 55 10 30 C10 15 22 5 35 5 C42 5 48 10 50 15 C52 10 58 5 65 5 C78 5 90 15 90 30 C90 55 50 85 50 85 Z" 
+                fill="#b8860b" stroke="#d4af37" stroke-width="2"/>
+          <path d="M50 75 C50 75 20 52 20 33 C20 22 29 14 38 14 C44 14 48 18 50 22 C52 18 56 14 62 14 C71 14 80 22 80 33 C80 52 50 75 50 75 Z" 
+                fill="#d4af37" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="envelope-front"></div>
+      <div class="envelope-text">
+        <span class="to-label">PARA</span>
+        <span class="to-name">El Amor de mi Vida</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- La carta (estilo boda) -->
+  <div id="card" class="wedding-card">
+    <div class="card-border">
+      <div class="card-corner top-left"></div>
+      <div class="card-corner top-right"></div>
+      <div class="card-corner bottom-left"></div>
+      <div class="card-corner bottom-right"></div>
+      
+      <div class="card-content">
+        <div class="ornament-top">❦</div>
+        <h2>Para mi amorcito</h2>
+        <div class="divider">
+          <span class="line"></span>
+          <span class="diamond">◆</span>
+          <span class="line"></span>
+        </div>
+        <p class="card-greeting">Querida Hillary,</p>
+        <p class="card-text">
+          Desde que llegaste a mi vida, todo tiene un color distinto.
+          No sé si es tu risa, tu forma de mirarme o esa manera que tienes de hacerme sentir en casa incluso cuando estamos en cualquier lugar.
+          Lo cierto es que a tu lado descubrí que la felicidad no es algo grandioso ni complicado: es esto, es tenerte cerca, es saber que estás y que soy yo el que puede compartir contigo los días buenos y los no tan buenos.
+          Me encanta cómo me haces sentir. Contigo aprendí que el amor también se trata de calma, de complicidad, de esos silencios que no incomodan y de las risas que aparecen sin motivo.
+          Eres mi persona favorita, mi refugio y mi plan perfecto incluso cuando no hay plan.
+          Y no exagero cuando digo que tenerte a mi lado es lo que más feliz me hace.
+          Tienes una sonrisa que ilumina mi mundo, unos ojos que me hacen soñar con el futuro...
+          Quiero seguir contigo en este viaje llamado vida.
+          Me encanta la mirada que tienes, y sobre todo lo amorosa que eres conmigo.
+          Cada día a tu lado es un regalo que atesoro en mi corazón.
+          
+        </p>
+        <p class="card-text">
+          Gracias por elegirme, por quedarte, por quererme tal como soy.
+          Quiero que sepas que cada día a tu lado es un regalo que no doy por sentado.
+          Te amo, y no hay nada que me haga más feliz que poder decírtelo y demostrártelo.
+        </p>
+        <p class="card-highlight">Gracias por ser tú</p>
+        <div class="divider">
+          <span class="line"></span>
+          <span class="diamond">◆</span>
+          <span class="line"></span>
+        </div>
+        <p class="card-signature">Con todo mi amor.
+          P.M
+        </p>
+        <div class="ornament-bottom">❦</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
